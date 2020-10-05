@@ -7,4 +7,8 @@
     <event name="wishlist_add_product">
         <observer name="check_customer_has_wishlist" instance="Magezil\CustomerBlock\Observer\CheckCustomerHasWishlist" />
     </event>
+
+    <event name="catalog_product_compare_add_product">
+        <observer name="check_customer_has_compare_list" instance="Magezil\CustomerBlock\Observer\CheckCustomerHasCompareList" />
+    </event>
 </config>
