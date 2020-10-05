@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="customer_login">
-        <observer name="check_custom_login" instance="Magezil\CustomerBlock\Observer\CheckCustomerLogin" />
+        <observer name="check_customer_login" instance="Magezil\CustomerBlock\Observer\CheckCustomerLogin" />
+    </event>
+
+    <event name="wishlist_add_product">
+        <observer name="check_customer_has_wishlist" instance="Magezil\CustomerBlock\Observer\CheckCustomerHasWishlist" />
     </event>
 </config>
