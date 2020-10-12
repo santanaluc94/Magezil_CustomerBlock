@@ -4,26 +4,30 @@ namespace Magezil\CustomerBlock\Observer;
 
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Framework\Message\ManagerInterface;
 use Magezil\CustomerBlock\Model\Config\Settings;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
-use Magento\Framework\Exception\AuthorizationException;
+use Magento\Framework\Exception\LocalizedException;
 
-class CheckCustomerHasWishlist implements ObserverInterface
+class CheckReview implements ObserverInterface
 {
-    const CUSTOMER_CAN_NOT_USE_WISHLIST = '0';
+    const CUSTOMER_CAN_PURCHASE = '0';
 
     private $customerSession;
     private $customerRepository;
+    private $messageManager;
     private $moduleSettings;
 
     public function __construct(
         CustomerSession $customerSession,
         CustomerRepositoryInterface $customerRepository,
+        ManagerInterface $messageManager,
         Settings $moduleSettings
     ) {
         $this->customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
+        $this->messageManager = $messageManager;
         $this->moduleSettings = $moduleSettings;
     }
 
@@ -34,17 +38,11 @@ class CheckCustomerHasWishlist implements ObserverInterface
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
-            if ($customer->getCustomAttribute('has_wishlist')->getValue() === self::CUSTOMER_CAN_NOT_USE_WISHLIST) {
+            if ($customer->getCustomAttribute('can_review')->getValue() === self::CUSTOMER_CAN_PURCHASE) {
 
-                $wishlist = $observer->getEvent()->getWishlist();
-                $items = $wishlist->getItemCollection();
-
-                foreach ($items as $item) {
-                    $item->delete();
-                    $wishlist->save();
-                }
-
-                throw new AuthorizationException(__('This customer is blocked in admin Magento to add products in wishlist.'));
+                $messageError = __('This customer is blocked in admin Magento to review.');
+                $this->messageManager->addErrorMessage($messageError);
+                throw new LocalizedException($messageError);
             }
         }
     }

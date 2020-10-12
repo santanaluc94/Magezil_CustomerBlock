@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Api\PaymentInformationManagementInterface">
+        <plugin name="check_customer_place_order" type="Magezil\CustomerBlock\Plugin\CheckPlaceOrder" />
+    </type>
+
+    <!-- <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="set_default_values_in_customer_create" type="Magezil\CustomerBlock\Plugin\DefaultValues\CustomerRegister" />
+    </type> -->
+</config>

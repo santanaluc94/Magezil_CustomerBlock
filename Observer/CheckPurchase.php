@@ -2,6 +2,8 @@
 
 namespace Magezil\CustomerBlock\Observer;
 
+use Magento\Checkout\Model\Session as CheckoutSession;
+use Magento\Quote\Model\QuoteRepository;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magezil\CustomerBlock\Model\Config\Settings;
@@ -9,19 +11,25 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Exception\AuthorizationException;
 
-class CheckCustomerHasWishlist implements ObserverInterface
+class CheckPurchase implements ObserverInterface
 {
-    const CUSTOMER_CAN_NOT_USE_WISHLIST = '0';
+    const CUSTOMER_CAN_PURCHASE = '0';
 
+    private $checkoutSession;
+    private $quoteRepository;
     private $customerSession;
     private $customerRepository;
     private $moduleSettings;
 
     public function __construct(
+        CheckoutSession $checkoutSession,
+        QuoteRepository $quoteRepository,
         CustomerSession $customerSession,
         CustomerRepositoryInterface $customerRepository,
         Settings $moduleSettings
     ) {
+        $this->checkoutSession = $checkoutSession;
+        $this->quoteRepository = $quoteRepository;
         $this->customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
         $this->moduleSettings = $moduleSettings;
@@ -34,17 +42,14 @@ class CheckCustomerHasWishlist implements ObserverInterface
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
-            if ($customer->getCustomAttribute('has_wishlist')->getValue() === self::CUSTOMER_CAN_NOT_USE_WISHLIST) {
+            if ($customer->getCustomAttribute('can_purchase')->getValue() === self::CUSTOMER_CAN_PURCHASE) {
+                $cart = $this->checkoutSession->getQuote();
+                $cart->removeAllItems()->save()->collectTotals();
 
-                $wishlist = $observer->getEvent()->getWishlist();
-                $items = $wishlist->getItemCollection();
+                $quote = $this->quoteRepository->getActive($cart->getId());
+                $quote->setTotalsCollectedFlag(false)->collectTotals()->save();
 
-                foreach ($items as $item) {
-                    $item->delete();
-                    $wishlist->save();
-                }
-
-                throw new AuthorizationException(__('This customer is blocked in admin Magento to add products in wishlist.'));
+                throw new AuthorizationException(__('This customer is blocked in admin Magento to purchase.'));
             }
         }
     }
