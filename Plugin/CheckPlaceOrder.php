@@ -13,6 +13,16 @@ use Magezil\CustomerBlock\Model\Config\Settings;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Checkout\Model\PaymentInformationManagement;
 
+/**
+ * Class CheckPlaceOrder
+ *
+ * @category Magento
+ * @package  Magezil_CustomerBlock
+ * @author   Lucas Teixeira dos Santos Santana <santanaluc94@gmail.com>
+ * @license  OSL-3.0
+ * @license  AFL-3.0
+ * @link     http://github.com/santanaluc94
+ */
 class CheckPlaceOrder
 {
     const CUSTOMER_CAN_PURCHASE = '0';

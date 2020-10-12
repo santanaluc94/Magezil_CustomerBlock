@@ -5,6 +5,16 @@ namespace Magezil\CustomerBlock\Model\Config;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
+/**
+ * Class Settings
+ *
+ * @category Magento
+ * @package  Magezil_CustomerBlock
+ * @author   Lucas Teixeira dos Santos Santana <santanaluc94@gmail.com>
+ * @license  OSL-3.0
+ * @license  AFL-3.0
+ * @link     http://github.com/santanaluc94
+ */
 class Settings
 {
     const MODULE_ENABLE = 'magezil_customer_block/general/enable';

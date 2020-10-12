@@ -10,6 +10,16 @@ use Magezil\CustomerBlock\Model\Config\Settings;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 
+/**
+ * Class CustomerRegister
+ *
+ * @category Magento
+ * @package  Magezil_CustomerBlock
+ * @author   Lucas Teixeira dos Santos Santana <santanaluc94@gmail.com>
+ * @license  OSL-3.0
+ * @license  AFL-3.0
+ * @link     http://github.com/santanaluc94
+ */
 class CustomerRegister implements ObserverInterface
 {
     public function __construct(
@@ -33,7 +43,6 @@ class CustomerRegister implements ObserverInterface
             $customerId = $observer->getEvent()->getCustomer()->getId();
 
             $customer = $this->customerRepository->getById($customerId);
-
             $customer->setCustomAttribute('is_blocked', $this->moduleSettings->setCustomerBlock())
                 ->setCustomAttribute('can_purchase', $this->moduleSettings->setCustomerCanPurchase())
                 ->setCustomAttribute('has_wishlist', $this->moduleSettings->setCustomerHasWishlist())

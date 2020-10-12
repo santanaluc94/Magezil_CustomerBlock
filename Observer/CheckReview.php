@@ -10,6 +10,16 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Exception\LocalizedException;
 
+/**
+ * Class CheckReview
+ *
+ * @category Magento
+ * @package  Magezil_CustomerBlock
+ * @author   Lucas Teixeira dos Santos Santana <santanaluc94@gmail.com>
+ * @license  OSL-3.0
+ * @license  AFL-3.0
+ * @link     http://github.com/santanaluc94
+ */
 class CheckReview implements ObserverInterface
 {
     const CUSTOMER_CAN_PURCHASE = '0';
