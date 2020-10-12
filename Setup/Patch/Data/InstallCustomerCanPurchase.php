@@ -9,6 +9,16 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
 
+/**
+ * Class InstallCustomerCanPurchase
+ *
+ * @category Magento
+ * @package  Magezil_CustomerBlock
+ * @author   Lucas Teixeira dos Santos Santana <santanaluc94@gmail.com>
+ * @license  OSL-3.0
+ * @license  AFL-3.0
+ * @link     http://github.com/santanaluc94
+ */
 class InstallCustomerCanPurchase implements DataPatchInterface
 {
     const ATTR_NAME = "can_purchase";
@@ -23,7 +33,7 @@ class InstallCustomerCanPurchase implements DataPatchInterface
         $this->attributeSetFactory = $attributeSetFactory;
     }
 
-    public function apply()
+    public function apply(): void
     {
         $customerSetup = $this->customerSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
@@ -71,7 +81,7 @@ class InstallCustomerCanPurchase implements DataPatchInterface
     /**
      * {@inheritdoc}
      */
-    public static function getDependencies()
+    public static function getDependencies(): array
     {
         return [];
     }
@@ -79,7 +89,7 @@ class InstallCustomerCanPurchase implements DataPatchInterface
     /**
      * {@inheritdoc}
      */
-    public function getAliases()
+    public function getAliases(): array
     {
         return [];
     }
