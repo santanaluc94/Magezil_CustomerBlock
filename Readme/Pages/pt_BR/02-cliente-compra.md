@@ -2,7 +2,7 @@
 
 ## Cliente Bloqueado
 
-Para retringir que o cliente entre com seu usuário na loja, siga os passos abaixo:
+Para retringir que o cliente compre ou adicione ao carrinho, siga os passos abaixo:
   - **Passo 1:** Magento admin --> Clientes --> Todos os Clientes --> _Cliente_
   - **Passo 2:** Informações da conta --> Cliente Pode Comprar
   - **Passo 3:** Não
