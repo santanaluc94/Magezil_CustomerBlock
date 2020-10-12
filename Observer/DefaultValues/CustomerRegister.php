@@ -7,7 +7,6 @@ use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Framework\Message\ManagerInterface;
 use Magezil\CustomerBlock\Model\Config\Settings;
-
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 
@@ -32,7 +31,6 @@ class CustomerRegister implements ObserverInterface
         if ($this->moduleSettings->isEnabled()) {
 
             $customerId = $observer->getEvent()->getCustomer()->getId();
-            // var_dump(get_class_methods($subject));die;s
 
             $customer = $this->customerRepository->getById($customerId);
 
