@@ -38,7 +38,7 @@ class InstallIsCustomerBlockedAttribute implements DataPatchInterface
             self::ATTR_NAME,
             [
                 'type' => 'int',
-                'label' => 'Is Customer Blocked',
+                'label' => 'Customer is Blocked',
                 'input' => 'select',
                 'source' => Boolean::class,
                 'required' => false,

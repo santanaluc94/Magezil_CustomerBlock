@@ -1,0 +1,17 @@
+Customer Block,Restrição de Cliente
+"Default lock value when registering customer.","Valor padrão de bloqueio ao registrar cliente."
+"Default purchase amount when registering customer.","Valor padrão de compra ao registrar cliente."
+"Default wishlist value when registering customer.","Valor padrão de lista de desejos ao registar cliente."
+"Default compare list value when registering customer.","Valor padrão de lista de comparação ao registrar cliente."
+"Default product review value when registering customer.","Valor padrão de revisão ao registrar cliente."
+Customer is Blocked,Cliente Bloqueado
+Customer Can Purchase,Cliente Pode Comprar
+Customer Has Wishlist,Cliente Possui Lista de Desejos
+Customer Has Compare List,Cliente Possui Lista de Comparação
+Customer Can Review,Cliente Pode Avaliar Produtos
+"This customer is blocked in admin Magento to add products in compare list.","Este cliente está com a funcionalidade de adicionar à lista de compras bloqueada pela administração."
+"This customer is blocked in admin Magento to add products in wishlist.","Este cliente está com a funcionalidade de adicionar à lista de desejos bloqueada pela administração."
+"This customer is blocked in admin Magento","Este cliente está bloqueado para entrar no site pela administração."
+"This customer is blocked in admin Magento to purchase.","Este cliente está com a funcionalidade de comprar bloqueada pela administração."
+"This customer is blocked in admin Magento to review.","Este cliente está com a funcionalidade de avaliar produtos bloqueada pela administração."
+"This customer is blocked in admin Magento.","Este cliente está bloqueado pela administração."

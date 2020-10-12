@@ -38,7 +38,7 @@ class InstallCustomerCanReview implements DataPatchInterface
             self::ATTR_NAME,
             [
                 'type' => 'int',
-                'label' => 'Customer Can Review Products',
+                'label' => 'Customer Can Review',
                 'input' => 'select',
                 'source' => Boolean::class,
                 'required' => false,

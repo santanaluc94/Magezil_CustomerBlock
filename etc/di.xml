@@ -3,8 +3,4 @@
     <type name="Magento\Checkout\Api\PaymentInformationManagementInterface">
         <plugin name="check_customer_place_order" type="Magezil\CustomerBlock\Plugin\CheckPlaceOrder" />
     </type>
-
-    <!-- <type name="Magento\Customer\Controller\Account\CreatePost">
-        <plugin name="set_default_values_in_customer_create" type="Magezil\CustomerBlock\Plugin\DefaultValues\CustomerRegister" />
-    </type> -->
 </config>
