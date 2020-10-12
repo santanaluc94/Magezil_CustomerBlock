@@ -1,6 +1,6 @@
 # Block Customer
 
-## Customer is Blocked
+## Customer Can Review
 
 To allow the customer to evaluate products, follow the steps below:
   - **Step 1:** Magento admin --> Customers --> All Customers --> _Customer_

@@ -1,6 +1,6 @@
 # Block Customer
 
-## Customer is Blocked
+## Customer Has Wishlist
 
 To allow the customer to add the wish list, follow the steps below:
   - **Step 1:** Magento admin --> Customers --> All Customers --> _Customer_

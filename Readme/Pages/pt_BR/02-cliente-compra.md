@@ -1,6 +1,6 @@
 # Restrição do Cliente
 
-## Cliente Bloqueado
+## Cliente Pode Comprar
 
 Para retringir que o cliente compre ou adicione ao carrinho, siga os passos abaixo:
   - **Passo 1:** Magento admin --> Clientes --> Todos os Clientes --> _Cliente_

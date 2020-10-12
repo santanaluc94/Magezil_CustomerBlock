@@ -1,6 +1,6 @@
 # Block Customer
 
-## Customer is Blocked
+## Customer Can Purchase
 
 To retrieve the customer to buy or add to the cart, follow the steps below:
   - **Step 1:** Magento admin --> Customers --> All Customers --> _Customer_

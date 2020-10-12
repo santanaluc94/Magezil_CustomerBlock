@@ -1,6 +1,6 @@
 # Restrição do Cliente
 
-## Cliente Bloqueado
+## Cliente Possui Lista de Comparação
 
 Para retringir que o cliente adicione a lista de comparação, siga os passos abaixo:
   - **Passo 1:** Magento admin --> Clientes --> Todos os Clientes --> _Cliente_

@@ -1,6 +1,6 @@
 # Restrição do Cliente
 
-## Cliente Bloqueado
+## Cliente Pode Avaliar Produtos
 
 Para retringir que o cliente avalie produtos, siga os passos abaixo:
   - **Passo 1:** Magento admin --> Clientes --> Todos os Clientes --> _Cliente_
