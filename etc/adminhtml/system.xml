@@ -15,10 +15,45 @@
                     <label>Module Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="can_purchase" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Can Purchase</label>
+            </group>
+            <group id="default_values" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Default Values</label>
+                <field id="is_blocked" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer is Blocked</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Customer can purchase in store frontend?</comment>
+                    <comment>Default lock value when registering customer.</comment>
+                    <depends>
+                        <field id="magezil_customer_block/general/enable">1</field>
+                    </depends>
+                </field>
+                <field id="can_purchase" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Can Purchase</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default purchase amount when registering customer.</comment>
+                    <depends>
+                        <field id="magezil_customer_block/general/enable">1</field>
+                    </depends>
+                </field>
+                <field id="has_wishlist" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Has Wishlist</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default wishlist value when registering customer.</comment>
+                    <depends>
+                        <field id="magezil_customer_block/general/enable">1</field>
+                    </depends>
+                </field>
+                <field id="has_compare_list" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Has Compare List</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default compare list value when registering customer.</comment>
+                    <depends>
+                        <field id="magezil_customer_block/general/enable">1</field>
+                    </depends>
+                </field>
+                <field id="can_review" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Can Review</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default product review value when registering customer.</comment>
                     <depends>
                         <field id="magezil_customer_block/general/enable">1</field>
                     </depends>

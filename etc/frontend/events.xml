@@ -5,10 +5,22 @@
     </event>
 
     <event name="wishlist_add_product">
-        <observer name="check_customer_has_wishlist" instance="Magezil\CustomerBlock\Observer\CheckCustomerHasWishlist" />
+        <observer name="check_customer_can_add_wishlist" instance="Magezil\CustomerBlock\Observer\CheckCustomerHasWishlist" />
     </event>
 
     <event name="catalog_product_compare_add_product">
-        <observer name="check_customer_has_compare_list" instance="Magezil\CustomerBlock\Observer\CheckCustomerHasCompareList" />
+        <observer name="check_customer_can_compare_list" instance="Magezil\CustomerBlock\Observer\CheckCustomerHasCompareList" />
+    </event>
+
+    <event name="checkout_cart_add_product_complete">
+        <observer name="check_customer_add_to_cart" instance="Magezil\CustomerBlock\Observer\CheckPurchase" />
+    </event>
+
+    <event name="review_controller_product_init">
+        <observer name="check_customer_can_review" instance="Magezil\CustomerBlock\Observer\CheckReview" />
+    </event>
+
+    <event name="customer_save_after">
+        <observer name="create_post_default_values" instance="Magezil\CustomerBlock\Observer\DefaultValues\CustomerRegister" />
     </event>
 </config>
