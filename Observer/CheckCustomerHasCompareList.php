@@ -22,13 +22,11 @@ use Magento\Framework\Event\Observer;
  */
 class CheckCustomerHasCompareList implements ObserverInterface
 {
-    const CUSTOMER_CAN_NOT_USE_COMPARE_LIST = '0';
-
-    private $customerSession;
-    private $compareList;
-    private $messageManager;
-    private $customerRepository;
-    private $moduleSettings;
+    private CustomerSession $customerSession;
+    private ListCompare $compareList;
+    private ManagerInterface $messageManager;
+    private CustomerRepositoryInterface $customerRepository;
+    private Settings $moduleSettings;
 
     public function __construct(
         CustomerSession $customerSession,
@@ -51,7 +49,7 @@ class CheckCustomerHasCompareList implements ObserverInterface
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
-            if ($customer->getCustomAttribute('has_compare_list')->getValue() === self::CUSTOMER_CAN_NOT_USE_COMPARE_LIST) {
+            if (!!!$customer->getCustomAttribute('has_compare_list')->getValue()) {
                 $this->compareList->getItemCollection()
                     ->setCustomerId($customer->getId())
                     ->clear()

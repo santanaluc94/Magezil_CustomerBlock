@@ -21,7 +21,11 @@ use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
  */
 class InstallCustomerCanPurchase implements DataPatchInterface
 {
-    const ATTR_NAME = "can_purchase";
+    private const ATTR_NAME = "can_purchase";
+
+    private ModuleDataSetupInterface $moduleDataSetup;
+    private CustomerSetupFactory $customerSetupFactory;
+    private SetFactory $attributeSetFactory;
 
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,

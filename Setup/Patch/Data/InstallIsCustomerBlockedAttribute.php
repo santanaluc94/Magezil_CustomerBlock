@@ -21,7 +21,11 @@ use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
  */
 class InstallIsCustomerBlockedAttribute implements DataPatchInterface
 {
-    const ATTR_NAME = "is_blocked";
+    private const ATTR_NAME = "is_blocked";
+
+    private ModuleDataSetupInterface $moduleDataSetup;
+    private CustomerSetupFactory $customerSetupFactory;
+    private SetFactory $attributeSetFactory;
 
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,

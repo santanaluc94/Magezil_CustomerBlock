@@ -22,13 +22,11 @@ use Magento\Framework\Event\Observer;
  */
 class CheckCustomerLogin implements ObserverInterface
 {
-    const CUSTOMER_CAN_NOT_SIGN_IN = '1';
-
-    private $messageManager;
-    private $customerSession;
-    private $redirect;
-    private $customerRepository;
-    private $moduleSettings;
+    private ManagerInterface $messageManager;
+    private CustomerSession $customerSession;
+    private RedirectInterface $redirect;
+    private CustomerRepositoryInterface $customerRepository;
+    private Settings $moduleSettings;
 
     public function __construct(
         ManagerInterface $messageManager,
@@ -51,7 +49,7 @@ class CheckCustomerLogin implements ObserverInterface
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
-            if ($customer->getCustomAttribute('is_blocked')->getValue() === self::CUSTOMER_CAN_NOT_SIGN_IN) {
+            if (!!$customer->getCustomAttribute('is_blocked')->getValue()) {
                 $this->messageManager->addErrorMessage(__('This customer is blocked in admin Magento.'));
 
                 $this->customerSession->logout()

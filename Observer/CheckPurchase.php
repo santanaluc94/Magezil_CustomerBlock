@@ -23,13 +23,11 @@ use Magento\Framework\Exception\AuthorizationException;
  */
 class CheckPurchase implements ObserverInterface
 {
-    const CUSTOMER_CAN_PURCHASE = '0';
-
-    private $checkoutSession;
-    private $quoteRepository;
-    private $customerSession;
-    private $customerRepository;
-    private $moduleSettings;
+    private CheckoutSession $checkoutSession;
+    private QuoteRepository $quoteRepository;
+    private CustomerSession $customerSession;
+    private CustomerRepositoryInterface $customerRepository;
+    private Settings $moduleSettings;
 
     public function __construct(
         CheckoutSession $checkoutSession,
@@ -52,7 +50,7 @@ class CheckPurchase implements ObserverInterface
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
-            if ($customer->getCustomAttribute('can_purchase')->getValue() === self::CUSTOMER_CAN_PURCHASE) {
+            if (!!!$customer->getCustomAttribute('can_purchase')->getValue()) {
                 $cart = $this->checkoutSession->getQuote();
                 $cart->removeAllItems()->save()->collectTotals();
 

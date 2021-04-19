@@ -25,16 +25,14 @@ use Magento\Checkout\Model\PaymentInformationManagement;
  */
 class CheckPlaceOrder
 {
-    const CUSTOMER_CAN_PURCHASE = '0';
-
-    private $customerSession;
-    private $checkoutSession;
-    private $customerRepository;
-    private $quoteRepository;
-    private $resultRedirectFactory;
-    private $redirect;
-    private $messageManager;
-    private $moduleSettings;
+    private CustomerSession $customerSession;
+    private CheckoutSession $checkoutSession;
+    private CustomerRepositoryInterface $customerRepository;
+    private QuoteRepository $quoteRepository;
+    private RedirectFactory $resultRedirectFactory;
+    private RedirectInterface $redirect;
+    private ManagerInterface $messageManager;
+    private Settings $moduleSettings;
 
     public function __construct(
         CustomerSession $customerSession,
@@ -56,21 +54,24 @@ class CheckPlaceOrder
         $this->moduleSettings = $moduleSettings;
     }
 
-    public function beforeSavePaymentInformationAndPlaceOrder(PaymentInformationManagement $subject): Redirect
-    {
+    public function beforeSavePaymentInformationAndPlaceOrder(
+        PaymentInformationManagement $subject
+    ): Redirect {
         if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
 
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
-            if ($customer->getCustomAttribute('can_purchase')->getValue() === self::CUSTOMER_CAN_PURCHASE) {
+            if (!!!$customer->getCustomAttribute('can_purchase')->getValue()) {
                 $cart = $this->checkoutSession->getQuote();
                 $cart->removeAllItems()->save()->collectTotals();
 
                 $quote = $this->quoteRepository->getActive($cart->getId());
                 $quote->setTotalsCollectedFlag(false)->collectTotals()->save();
 
-                $this->messageManager->addErrorMessage(__('This customer is blocked in admin Magento to purchase.'));
+                $this->messageManager->addErrorMessage(
+                    __('This customer is blocked in admin Magento to purchase.')
+                );
 
                 $result = $this->resultRedirectFactory->create();
                 return $result->setUrl($this->redirect->getRefererUrl());

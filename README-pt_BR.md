@@ -10,13 +10,13 @@ Para baixar o módulo via composer, execute o código abaixo.
 
 ### Requisitos do Sistema
 
-> **Versão mínima:** 2.O
+> **Versão mínima:** 2.4.O
 >
-> **Versão desenvolvida:** 2.3
+> **Versão desenvolvida:** 2.4.0
 >
-> **Versão do PHP:** 7.0
+> **Versão do PHP:** 7.4
 >
-> **Versão estável**: 1.0
+> **Versão estável**: 1.1
 >
 > **Licença:** OSL-3.0/AFL-3.0
 

@@ -21,11 +21,9 @@ use Magento\Framework\Exception\AuthorizationException;
  */
 class CheckCustomerHasWishlist implements ObserverInterface
 {
-    const CUSTOMER_CAN_NOT_USE_WISHLIST = '0';
-
-    private $customerSession;
-    private $customerRepository;
-    private $moduleSettings;
+    private CustomerSession $customerSession;
+    private CustomerRepositoryInterface $customerRepository;
+    private Settings $moduleSettings;
 
     public function __construct(
         CustomerSession $customerSession,
@@ -44,7 +42,7 @@ class CheckCustomerHasWishlist implements ObserverInterface
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
-            if ($customer->getCustomAttribute('has_wishlist')->getValue() === self::CUSTOMER_CAN_NOT_USE_WISHLIST) {
+            if (!!!$customer->getCustomAttribute('has_wishlist')->getValue()) {
 
                 $wishlist = $observer->getEvent()->getWishlist();
                 $items = $wishlist->getItemCollection();
@@ -54,7 +52,9 @@ class CheckCustomerHasWishlist implements ObserverInterface
                     $wishlist->save();
                 }
 
-                throw new AuthorizationException(__('This customer is blocked in admin Magento to add products in wishlist.'));
+                throw new AuthorizationException(
+                    __('This customer is blocked in admin Magento to add products in wishlist.')
+                );
             }
         }
     }

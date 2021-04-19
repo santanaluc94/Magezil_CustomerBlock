@@ -21,7 +21,11 @@ use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
  */
 class InstallCustomerHasWishlist implements DataPatchInterface
 {
-    const ATTR_NAME = "has_wishlist";
+    private const ATTR_NAME = "has_wishlist";
+
+    private ModuleDataSetupInterface $moduleDataSetup;
+    private CustomerSetupFactory $customerSetupFactory;
+    private SetFactory $attributeSetFactory;
 
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,

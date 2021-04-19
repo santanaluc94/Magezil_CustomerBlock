@@ -21,7 +21,11 @@ use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
  */
 class InstallCustomerHasListToCompare implements DataPatchInterface
 {
-    const ATTR_NAME = "has_compare_list";
+    private const ATTR_NAME = "has_compare_list";
+
+    private ModuleDataSetupInterface $moduleDataSetup;
+    private CustomerSetupFactory $customerSetupFactory;
+    private SetFactory $attributeSetFactory;
 
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,

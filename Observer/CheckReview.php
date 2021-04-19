@@ -22,12 +22,10 @@ use Magento\Framework\Exception\LocalizedException;
  */
 class CheckReview implements ObserverInterface
 {
-    const CUSTOMER_CAN_PURCHASE = '0';
-
-    private $customerSession;
-    private $customerRepository;
-    private $messageManager;
-    private $moduleSettings;
+    private CustomerSession $customerSession;
+    private CustomerRepositoryInterface $customerRepository;
+    private ManagerInterface $messageManager;
+    private Settings $moduleSettings;
 
     public function __construct(
         CustomerSession $customerSession,
@@ -48,7 +46,7 @@ class CheckReview implements ObserverInterface
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
-            if ($customer->getCustomAttribute('can_review')->getValue() === self::CUSTOMER_CAN_PURCHASE) {
+            if (!!!$customer->getCustomAttribute('can_review')->getValue()) {
 
                 $messageError = __('This customer is blocked in admin Magento to review.');
                 $this->messageManager->addErrorMessage($messageError);

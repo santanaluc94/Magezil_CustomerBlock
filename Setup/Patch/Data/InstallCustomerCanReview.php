@@ -21,7 +21,11 @@ use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
  */
 class InstallCustomerCanReview implements DataPatchInterface
 {
-    const ATTR_NAME = "can_review";
+    private const ATTR_NAME = "can_review";
+
+    private ModuleDataSetupInterface $moduleDataSetup;
+    private CustomerSetupFactory $customerSetupFactory;
+    private SetFactory $attributeSetFactory;
 
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,

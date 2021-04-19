@@ -17,12 +17,14 @@ use Magento\Store\Model\ScopeInterface;
  */
 class Settings
 {
-    const MODULE_ENABLE = 'magezil_customer_block/general/enable';
-    const CUSTOMER_IS_BLOCKED = 'magezil_customer_block/default_values/is_blocked';
-    const CUSTOMER_CAN_PURCHASE = 'magezil_customer_block/default_values/can_purchase';
-    const CUSTOMER_HAS_WISHLIST = 'magezil_customer_block/default_values/has_wishlist';
-    const CUSTOMER_HAS_COMPARE_LIST = 'magezil_customer_block/default_values/has_compare_list';
-    const CUSTOMER_CAN_REVIEW = 'magezil_customer_block/default_values/can_review';
+    private const MODULE_ENABLE = 'magezil_customer_block/general/enable';
+    private const CUSTOMER_IS_BLOCKED = 'magezil_customer_block/default_values/is_blocked';
+    private const CUSTOMER_CAN_PURCHASE = 'magezil_customer_block/default_values/can_purchase';
+    private const CUSTOMER_HAS_WISHLIST = 'magezil_customer_block/default_values/has_wishlist';
+    private const CUSTOMER_HAS_COMPARE_LIST = 'magezil_customer_block/default_values/has_compare_list';
+    private const CUSTOMER_CAN_REVIEW = 'magezil_customer_block/default_values/can_review';
+
+    protected ScopeConfigInterface $scopeConfig;
 
     public function __construct(
         ScopeConfigInterface $scopeConfig
@@ -38,7 +40,7 @@ class Settings
         );
     }
 
-    public function setCustomerBlock(): int
+    public function getCustomerBlock(): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_IS_BLOCKED,
@@ -46,7 +48,7 @@ class Settings
         );
     }
 
-    public function setCustomerCanPurchase(): int
+    public function getCustomerCanPurchase(): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_CAN_PURCHASE,
@@ -54,7 +56,7 @@ class Settings
         );
     }
 
-    public function setCustomerHasWishlist(): int
+    public function getCustomerHasWishlist(): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_HAS_WISHLIST,
@@ -62,7 +64,7 @@ class Settings
         );
     }
 
-    public function setCustomerHasCompareList(): int
+    public function getCustomerHasCompareList(): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_HAS_COMPARE_LIST,
@@ -70,7 +72,7 @@ class Settings
         );
     }
 
-    public function setCustomerCanReview(): int
+    public function getCustomerCanReview(): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_CAN_REVIEW,

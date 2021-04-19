@@ -10,13 +10,13 @@ To download the module by composer, execute this code bellow.
 
 ### Requisitos do Sistema
 
-> Requires at least: 2.O
+> Requires at least: 2.4.0
 >
-> Tested up to: 2.3
+> Tested up to: 2.4.0
 >
-> Requires PHP: 7.0
+> Requires PHP: 7.4
 >
-> Stable tag: 1.0
+> Stable tag: 1.1
 >
 > Licenses: OSL-3.0/AFL-3.0
 
