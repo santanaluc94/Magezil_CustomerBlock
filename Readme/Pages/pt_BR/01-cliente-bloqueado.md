@@ -2,7 +2,7 @@
 
 ## Cliente Bloqueado
 
-Para retringir que o cliente entre com seu usuário na loja, siga os passos abaixo:
+Para restringir que o cliente entre com seu usuário na loja, siga os passos abaixo:
   - **Passo 1:** Magento admin --> Clientes --> Todos os Clientes --> _Cliente_
   - **Passo 2:** Informações da conta --> Cliente Bloqueado
   - **Passo 3:** Sim
