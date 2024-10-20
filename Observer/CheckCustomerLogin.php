@@ -7,6 +7,7 @@ use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\App\Response\RedirectInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magezil\CustomerBlock\Model\Config\Settings;
+use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 
@@ -27,19 +28,22 @@ class CheckCustomerLogin implements ObserverInterface
     private RedirectInterface $redirect;
     private CustomerRepositoryInterface $customerRepository;
     private Settings $moduleSettings;
+    private StoreManagerInterface $storeManager;
 
     public function __construct(
         ManagerInterface $messageManager,
         CustomerSession $customerSession,
         RedirectInterface $redirect,
         CustomerRepositoryInterface $customerRepository,
-        Settings $moduleSettings
+        Settings $moduleSettings,
+        StoreManagerInterface $storeManager
     ) {
         $this->messageManager = $messageManager;
         $this->customerSession = $customerSession;
         $this->redirect = $redirect;
         $this->customerRepository = $customerRepository;
         $this->moduleSettings = $moduleSettings;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -49,7 +53,9 @@ class CheckCustomerLogin implements ObserverInterface
      */
     public function execute(Observer $observer): void
     {
-        if ($this->moduleSettings->isEnabled()) {
+        $storeId = $this->storeManager->getStore()->getId();
+
+        if ($this->moduleSettings->isEnabled($storeId)) {
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 

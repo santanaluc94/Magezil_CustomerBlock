@@ -49,18 +49,25 @@ class CheckCustomerHasCompareList implements ObserverInterface
      */
     public function execute(Observer $observer): void
     {
-        if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
-            $customerId = $this->customerSession->getCustomer()->getId();
-            $customer = $this->customerRepository->getById($customerId);
+        if ($this->customerSession->isLoggedIn()) {
+            $customer = $this->customerSession->getCustomer();
+            $customerId = $customer->getId();
+            $storeId = $customer->getStoreId();
 
-            if (!!!$customer->getCustomAttribute('has_compare_list')->getValue()) {
-                $this->compareList->getItemCollection()
-                    ->setCustomerId($customer->getId())
-                    ->clear()
-                    ->save();
+            if ($this->moduleSettings->isEnabled($storeId)) {
+                $customer = $this->customerRepository->getById($customerId);
 
-                $this->messageManager->getMessages(true);
-                $this->messageManager->addErrorMessage(__('This customer is blocked in admin Magento to add products in compare list.'));
+                if (!!!$customer->getCustomAttribute('has_compare_list')->getValue()) {
+                    $this->compareList->getItemCollection()
+                        ->setCustomerId($customer->getId())
+                        ->clear()
+                        ->save();
+
+                    $this->messageManager->getMessages(true);
+                    $this->messageManager->addErrorMessage(__(
+                        'This customer is blocked in admin Magento to add products in compare list.'
+                    ));
+                }
             }
         }
     }

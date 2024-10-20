@@ -40,13 +40,14 @@ class CustomerRegister implements ObserverInterface
             /** @var \Magento\Customer\Model\Customer $customer */
             $customer = $observer->getEvent()->getData('customer');
             $customerId = $customer->getId();
+            $storeId = $customer->getStoreId();
 
             $customer = $this->customerRepository->getById($customerId);
-            $customer->setCustomAttribute('is_blocked', $this->moduleSettings->getCustomerBlock())
-                ->setCustomAttribute('can_purchase', $this->moduleSettings->getCustomerCanPurchase())
-                ->setCustomAttribute('has_wishlist', $this->moduleSettings->getCustomerHasWishlist())
-                ->setCustomAttribute('has_compare_list', $this->moduleSettings->getCustomerHasCompareList())
-                ->setCustomAttribute('can_review', $this->moduleSettings->getCustomerCanReview());
+            $customer->setCustomAttribute('is_blocked', $this->moduleSettings->getCustomerBlock($storeId))
+                ->setCustomAttribute('can_purchase', $this->moduleSettings->getCustomerCanPurchase($storeId))
+                ->setCustomAttribute('has_wishlist', $this->moduleSettings->getCustomerHasWishlist($storeId))
+                ->setCustomAttribute('has_compare_list', $this->moduleSettings->getCustomerHasCompareList($storeId))
+                ->setCustomAttribute('can_review', $this->moduleSettings->getCustomerCanReview($storeId));
 
             $this->customerRepository->save($customer);
         }

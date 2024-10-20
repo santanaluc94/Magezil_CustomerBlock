@@ -32,51 +32,57 @@ class Settings
         $this->scopeConfig = $scopeConfig;
     }
 
-    public function isEnabled(): bool
+    public function isEnabled(?int $storeId = null): bool
     {
         return $this->scopeConfig->isSetFlag(
             self::MODULE_ENABLE,
-            ScopeInterface::SCOPE_WEBSITE
+            ScopeInterface::SCOPE_STORE,
+            $storeId
         );
     }
 
-    public function getCustomerBlock(): int
+    public function getCustomerBlock(?int $storeId = null): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_IS_BLOCKED,
-            ScopeInterface::SCOPE_WEBSITE
+            ScopeInterface::SCOPE_STORE,
+            $storeId
         );
     }
 
-    public function getCustomerCanPurchase(): int
+    public function getCustomerCanPurchase(?int $storeId = null): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_CAN_PURCHASE,
-            ScopeInterface::SCOPE_WEBSITE
+            ScopeInterface::SCOPE_STORE,
+            $storeId
         );
     }
 
-    public function getCustomerHasWishlist(): int
+    public function getCustomerHasWishlist(?int $storeId = null): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_HAS_WISHLIST,
-            ScopeInterface::SCOPE_WEBSITE
+            ScopeInterface::SCOPE_STORE,
+            $storeId
         );
     }
 
-    public function getCustomerHasCompareList(): int
+    public function getCustomerHasCompareList(?int $storeId = null): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_HAS_COMPARE_LIST,
-            ScopeInterface::SCOPE_WEBSITE
+            ScopeInterface::SCOPE_STORE,
+            $storeId
         );
     }
 
-    public function getCustomerCanReview(): int
+    public function getCustomerCanReview(?int $storeId = null): int
     {
         return (int) $this->scopeConfig->getValue(
             self::CUSTOMER_CAN_REVIEW,
-            ScopeInterface::SCOPE_WEBSITE
+            ScopeInterface::SCOPE_STORE,
+            $storeId
         );
     }
 }
