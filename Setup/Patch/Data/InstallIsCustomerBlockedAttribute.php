@@ -7,6 +7,8 @@ use Magento\Customer\Setup\CustomerSetupFactory;
 use Magento\Eav\Model\Entity\Attribute\SetFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
+use Magento\Framework\Setup\Patch\PatchVersionInterface;
+use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
 
 /**
@@ -19,7 +21,7 @@ use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
  * @license  AFL-3.0
  * @link     http://github.com/santanaluc94
  */
-class InstallIsCustomerBlockedAttribute implements DataPatchInterface
+class InstallIsCustomerBlockedAttribute implements DataPatchInterface, PatchVersionInterface, PatchRevertableInterface
 {
     private const ATTR_NAME = "is_blocked";
 
@@ -84,19 +86,28 @@ class InstallIsCustomerBlockedAttribute implements DataPatchInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    public function revert(): void
+    {
+        $this->moduleDataSetup->getConnection()->startSetup();
+
+        $customerSetup = $this->customerSetupFactory->create(['setup' => $this->moduleDataSetup]);
+        $customerSetup->removeAttribute(Customer::ENTITY, self::ATTR_NAME);
+
+        $this->moduleDataSetup->getConnection()->endSetup();
+    }
+
     public static function getDependencies(): array
     {
         return [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAliases(): array
     {
         return [];
+    }
+
+    public static function getVersion()
+    {
+        return '1.0.0';
     }
 }
