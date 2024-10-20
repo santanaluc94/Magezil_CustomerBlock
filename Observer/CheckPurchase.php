@@ -43,10 +43,14 @@ class CheckPurchase implements ObserverInterface
         $this->moduleSettings = $moduleSettings;
     }
 
+    /**
+     * @param Observer $observer
+     * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function execute(Observer $observer): void
     {
         if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
-
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
@@ -55,7 +59,10 @@ class CheckPurchase implements ObserverInterface
                 $cart->removeAllItems()->save()->collectTotals();
 
                 $quote = $this->quoteRepository->getActive($cart->getId());
-                $quote->setTotalsCollectedFlag(false)->collectTotals()->save();
+                // @phpstan-ignore-next-line
+                $quote->setTotalsCollectedFlag(false)
+                    ->collectTotals()
+                    ->save();
 
                 throw new AuthorizationException(__('This customer is blocked in admin Magento to purchase.'));
             }

@@ -39,15 +39,18 @@ class CheckReview implements ObserverInterface
         $this->moduleSettings = $moduleSettings;
     }
 
+    /**
+     * @param Observer $observer
+     * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function execute(Observer $observer): void
     {
         if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
-
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
             if (!!!$customer->getCustomAttribute('can_review')->getValue()) {
-
                 $messageError = __('This customer is blocked in admin Magento to review.');
                 $this->messageManager->addErrorMessage($messageError);
                 throw new LocalizedException($messageError);
