@@ -30,11 +30,16 @@ class CustomerRegister implements ObserverInterface
         $this->moduleSettings = $moduleSettings;
     }
 
+    /**
+     * @param Observer $observer
+     * @return void
+     */
     public function execute(Observer $observer): void
     {
         if ($this->moduleSettings->isEnabled()) {
-
-            $customerId = $observer->getEvent()->getCustomer()->getId();
+            /** @var \Magento\Customer\Model\Customer $customer */
+            $customer = $observer->getEvent()->getData('customer');
+            $customerId = $customer->getId();
 
             $customer = $this->customerRepository->getById($customerId);
             $customer->setCustomAttribute('is_blocked', $this->moduleSettings->getCustomerBlock())

@@ -1,0 +1,4 @@
+/vendor/
+test-reports/
+.phpunit.result.cache
+phpcpd.log

@@ -35,16 +35,18 @@ class CheckCustomerHasWishlist implements ObserverInterface
         $this->moduleSettings = $moduleSettings;
     }
 
+    /**
+     * @param Observer $observer
+     * @return void
+     */
     public function execute(Observer $observer): void
     {
         if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
-
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
             if (!!!$customer->getCustomAttribute('has_wishlist')->getValue()) {
-
-                $wishlist = $observer->getEvent()->getWishlist();
+                $wishlist = $observer->getEvent()->getData('wishlist');
                 $items = $wishlist->getItemCollection();
 
                 foreach ($items as $item) {

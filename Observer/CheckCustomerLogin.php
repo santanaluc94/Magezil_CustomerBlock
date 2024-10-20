@@ -42,17 +42,20 @@ class CheckCustomerLogin implements ObserverInterface
         $this->moduleSettings = $moduleSettings;
     }
 
+    /**
+     * @param Observer $observer
+     * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function execute(Observer $observer): void
     {
         if ($this->moduleSettings->isEnabled()) {
-
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
             if (!!$customer->getCustomAttribute('is_blocked')->getValue()) {
                 $this->messageManager->addErrorMessage(__('This customer is blocked in admin Magento.'));
-
-                $this->customerSession->logout()
+                $this->customerSession->logout() // @phpstan-ignore-line
                     ->setBeforeAuthUrl($this->redirect->getRefererUrl())
                     ->setLastCustomerId($customer->getId());
             }

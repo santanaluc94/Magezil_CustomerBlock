@@ -54,11 +54,15 @@ class CheckPlaceOrder
         $this->moduleSettings = $moduleSettings;
     }
 
+    /**
+     * @param PaymentInformationManagement $subject
+     * @return Redirect|void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function beforeSavePaymentInformationAndPlaceOrder(
         PaymentInformationManagement $subject
-    ): Redirect {
+    ) {
         if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
-
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 
@@ -67,6 +71,7 @@ class CheckPlaceOrder
                 $cart->removeAllItems()->save()->collectTotals();
 
                 $quote = $this->quoteRepository->getActive($cart->getId());
+                // @phpstan-ignore-next-line
                 $quote->setTotalsCollectedFlag(false)->collectTotals()->save();
 
                 $this->messageManager->addErrorMessage(

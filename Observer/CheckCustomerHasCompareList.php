@@ -42,10 +42,14 @@ class CheckCustomerHasCompareList implements ObserverInterface
         $this->moduleSettings = $moduleSettings;
     }
 
+    /**
+     * @param Observer $observer
+     * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function execute(Observer $observer): void
     {
         if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
-
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerRepository->getById($customerId);
 

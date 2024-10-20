@@ -1,0 +1,11 @@
+parameters:
+    level: 5
+    paths:
+        - ./
+    fileExtensions:
+        - php
+    excludes_analyse:
+        - ./etc/*
+        - ./Test/*
+        - ./test-reports/*
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::(get|set|uns|has)[A-Z]#'

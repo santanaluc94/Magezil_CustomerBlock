@@ -37,12 +37,12 @@ class InstallCustomerCanPurchase implements DataPatchInterface
         $this->attributeSetFactory = $attributeSetFactory;
     }
 
-    public function apply(): void
+    public function apply(): self
     {
         $customerSetup = $this->customerSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
         $customerEntity = $customerSetup->getEavConfig()->getEntityType(Customer::ENTITY);
-        $attributeSetId = $customerEntity->getDefaultAttributeSetId();
+        $attributeSetId = (int) $customerEntity->getDefaultAttributeSetId();
 
         $attributeSet = $this->attributeSetFactory->create();
         $attributeGroupId = $attributeSet->getDefaultGroupId($attributeSetId);
@@ -80,6 +80,7 @@ class InstallCustomerCanPurchase implements DataPatchInterface
         );
 
         $attribute->save();
+        return $this;
     }
 
     /**
