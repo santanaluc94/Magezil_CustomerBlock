@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <magezil_customer_block>
+            <general>
+                <parameter>0</parameter>
+            </general>
+            <default_values>
+                <is_blocked>0</is_blocked>
+                <can_purchase>0</can_purchase>
+                <has_wishlist>0</has_wishlist>
+                <has_compare_list>0</has_compare_list>
+                <can_review>0</can_review>
+            </default_values>
+        </magezil_customer_block>
+    </default>
+</config>
