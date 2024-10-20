@@ -50,21 +50,26 @@ class CheckPurchase implements ObserverInterface
      */
     public function execute(Observer $observer): void
     {
-        if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
-            $customerId = $this->customerSession->getCustomer()->getId();
-            $customer = $this->customerRepository->getById($customerId);
+        if ($this->customerSession->isLoggedIn()) {
+            $customer = $this->customerSession->getCustomer();
+            $customerId = $customer->getId();
+            $storeId = $customer->getStoreId();
 
-            if (!!!$customer->getCustomAttribute('can_purchase')->getValue()) {
-                $cart = $this->checkoutSession->getQuote();
-                $cart->removeAllItems()->save()->collectTotals();
+            if ($this->moduleSettings->isEnabled($storeId)) {
+                $customer = $this->customerRepository->getById($customerId);
 
-                $quote = $this->quoteRepository->getActive($cart->getId());
-                // @phpstan-ignore-next-line
-                $quote->setTotalsCollectedFlag(false)
-                    ->collectTotals()
-                    ->save();
+                if (!!!$customer->getCustomAttribute('can_purchase')->getValue()) {
+                    $cart = $this->checkoutSession->getQuote();
+                    $cart->removeAllItems()->save()->collectTotals();
 
-                throw new AuthorizationException(__('This customer is blocked in admin Magento to purchase.'));
+                    $quote = $this->quoteRepository->getActive($cart->getId());
+                    // @phpstan-ignore-next-line
+                    $quote->setTotalsCollectedFlag(false)
+                        ->collectTotals()
+                        ->save();
+
+                    throw new AuthorizationException(__('This customer is blocked in admin Magento to purchase.'));
+                }
             }
         }
     }

@@ -41,22 +41,27 @@ class CheckCustomerHasWishlist implements ObserverInterface
      */
     public function execute(Observer $observer): void
     {
-        if ($this->customerSession->isLoggedIn() && $this->moduleSettings->isEnabled()) {
-            $customerId = $this->customerSession->getCustomer()->getId();
-            $customer = $this->customerRepository->getById($customerId);
+        if ($this->customerSession->isLoggedIn()) {
+            $customer = $this->customerSession->getCustomer();
+            $customerId = $customer->getId();
+            $storeId = $customer->getStoreId();
 
-            if (!!!$customer->getCustomAttribute('has_wishlist')->getValue()) {
-                $wishlist = $observer->getEvent()->getData('wishlist');
-                $items = $wishlist->getItemCollection();
+            if ($this->moduleSettings->isEnabled($storeId)) {
+                $customer = $this->customerRepository->getById($customerId);
 
-                foreach ($items as $item) {
-                    $item->delete();
-                    $wishlist->save();
+                if (!!!$customer->getCustomAttribute('has_wishlist')->getValue()) {
+                    $wishlist = $observer->getEvent()->getData('wishlist');
+                    $items = $wishlist->getItemCollection();
+
+                    foreach ($items as $item) {
+                        $item->delete();
+                        $wishlist->save();
+                    }
+
+                    throw new AuthorizationException(
+                        __('This customer is blocked in admin Magento to add products in wishlist.')
+                    );
                 }
-
-                throw new AuthorizationException(
-                    __('This customer is blocked in admin Magento to add products in wishlist.')
-                );
             }
         }
     }
